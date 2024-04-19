@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/context
+                    https://www.springframework.org/schema/context/spring-context.xsd
+                    http://mybatis.org/schema/mybatis-spring
+                    http://mybatis.org/schema/mybatis-spring.xsd">
+
+<!--    <bean class="com.zerock.springex.sample.SampleDAO"></bean>-->
+<!--    <bean class="com.zerock.springex.sample.SampleService"></bean>-->
+
+    <!-- 컴포넌트 스캔 : 특정 위치에 있는 bean들 자동 등록
+        이때 객체에 어노테이션 사용 :
+        @Controller,  MVC의 컨트롤러를 위한 어노테이션
+        @Service, 서비스 계층의 객체를 위한 어노테이션
+        @Repository, DAO와 같은 객체를 위한 어노테이션
+        @Component  일반 객체나 유틸리티 객체를 위한 어노테이션
+    -->
+    <!--  com.zercok.demotest.sample 패키지에 어노테이션 인식하여 등록  -->
+    <context:component-scan base-package="com.zerock.springex.sample" />
+
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/webdb?serverTimezone=Asia/Seoul"></property>
+        <property name="username" value="spring"></property>
+        <property name="password" value="spring"></property>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
+
+    <!-- MyBatis 사용을 위한 객체 생성 : SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml" />
+    </bean>
+
+    <mybatis:scan base-package="com.zerock.springex.mapper" />
+
+</beans>
