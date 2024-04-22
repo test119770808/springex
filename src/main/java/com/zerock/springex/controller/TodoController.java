@@ -1,6 +1,8 @@
 package com.zerock.springex.controller;
 
 import com.zerock.springex.dto.TodoDTO;
+import com.zerock.springex.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,7 +16,10 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/todo")
 @Log4j2
+@RequiredArgsConstructor
 public class TodoController {
+
+    private final TodoService todoService;
 
     // /todo/list 접근시....
     @RequestMapping("/list")
@@ -42,6 +47,8 @@ public class TodoController {
         }
 
         log.info(todoDTO);
+
+        todoService.register(todoDTO);
 
         return "redirect:/todo/list";  //등록후 목록으로 이동...
     }
