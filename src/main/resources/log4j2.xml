@@ -12,9 +12,15 @@
         <logger name="org.springframework" level="INFO" additivity="false">
             <appender-ref ref="console" />
         </logger>
+
         <logger name="com.zerock" level="INFO" additivity="false">
             <appender-ref ref="console" />
         </logger>
+
+        <logger name="com.zerock.springex.mapper" level="TRACE" additivity="false">
+            <appender-ref ref="console" />
+        </logger>
+
         <root level="INFO" additivity="false">
             <appender-ref ref="console" />
         </root>
