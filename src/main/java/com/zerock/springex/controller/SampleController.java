@@ -103,4 +103,10 @@ public class SampleController {
     // 객체나 배열, 기본 자료형...
 
 
+    // 고의로 예외 발생하는 코드 작성
+    @GetMapping("/ex7")
+    public void ex7(String p1, int p2) {
+        log.info("p1 ................"+ p1);
+        log.info("p2................."+ p2);
+    }
 }
