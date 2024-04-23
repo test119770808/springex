@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: sc_tjoeun
   Date: 2024-04-23
-  Time: 오전 10:06
+  Time: 오전 10:56
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -52,29 +52,39 @@
                         Featured
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treadtment</h5>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Tno</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Write</th>
-                                <th scope="col">DueDate</th>
-                                <th scope="col">Finished</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${dtoList}" var="dto">
-                            <tr>
-                                <th scope="row"><c:out value="${dto.tno}"/></th>
-                                <td><a href="" class="text-decoration-none"><c:out value="${dto.title}"/></a></td>
-                                <td><c:out value="${dto.writer}"/></td>
-                                <td><c:out value="${dto.dueDate}"/></td>
-                                <td><c:out value="${dto.finished}"/></td>
-                            </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">TNO</span>
+                            <input type="text" name="tno" class="form-control"
+                             value=<c:out value="${dto.tno}" /> readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Title</span>
+                            <input type="text" name="title" class="form-control"
+                                   value='<c:out value="${dto.title}" />' readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">DueDate</span>
+                            <input type="date" name="dueDate" class="form-control"
+                                   value='<c:out value="${dto.dueDate}" />' readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Writer</span>
+                            <input type="text" name="writer" class="form-control"
+                                   value='<c:out value="${dto.writer}" />' readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="form-check-label">
+                                Finished &nbsp;
+                            </label>
+                            <input type="checkbox" name="finished" class="form-check-input"
+                                  ${dto.finished ? "checked" : ""}  disabled>
+                        </div>
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="button" class="btn btn-primary">Modify</button>
+                                <button type="button" class="btn btn-secondary">List</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

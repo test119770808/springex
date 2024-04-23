@@ -14,4 +14,7 @@ public interface TodoMapper {
     // Todo 목록
     List<TodoVO> selectAll();
 
+    // Todo 조회 기능
+    TodoVO selectOne(Long tno);
+
 }

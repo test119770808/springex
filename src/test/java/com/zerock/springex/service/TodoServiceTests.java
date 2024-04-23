@@ -1,5 +1,6 @@
 package com.zerock.springex.service;
 
+import com.zerock.springex.domain.TodoVO;
 import com.zerock.springex.dto.TodoDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,11 @@ public class TodoServiceTests {
     public void testGetAll() {
         List<TodoDTO> dtoList = todoService.getAll();
         dtoList.forEach(dto -> log.info(dto));
+    }
+
+    @Test
+    public void testSelectOne() {
+
     }
 
 }
