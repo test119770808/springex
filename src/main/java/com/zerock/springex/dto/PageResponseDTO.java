@@ -1,9 +1,13 @@
 package com.zerock.springex.dto;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
+@Getter
+@ToString
 public class PageResponseDTO<E> {
     // TodoDTO의 목록
     // 전체 데이터의 수
@@ -34,14 +38,19 @@ public class PageResponseDTO<E> {
         this.total = total;
         this.dtoList = dtoList;
 
-
+        // 페이지 끝번호
         this.end = (int)(Math.ceil(this.page / 10.0)) * 10;   //10은  페이지 번호 개수
+        // 페이지 시작번호
         this.start = this.end - 9;
 
         // realEnd
         int last = (int)(Math.ceil((total/(double)size)));
+        this.end = end > last ? last: end;
+
+        // prev
+        this.prev = this.start > 1;
+        // next
+        this.next = total > this.end * this.size;
 
     }
-
-
 }

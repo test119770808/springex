@@ -1,5 +1,6 @@
 package com.zerock.springex.controller;
 
+import com.zerock.springex.dto.PageRequestDTO;
 import com.zerock.springex.dto.TodoDTO;
 import com.zerock.springex.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class TodoController {
     @RequestMapping("/list")
     public void list(Model model) {
         log.info("todo list..... ");
-        model.addAttribute("dtoList", todoService.getAll());
+        model.addAttribute("dtoList", todoService.getList(new PageRequestDTO()));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
