@@ -57,11 +57,28 @@ public class TodoController {
     }
 
     // 한개의 Todo 조회하기
-    @GetMapping("/read")
+    @GetMapping({"/read", "/modify"}) // /read로 들어오면 read.jsp로, /modify로 들어오면 modify.jsp로 이동
     public void read(Long tno, Model model) {
         TodoDTO todoDTO = todoService.getOne(tno);
         log.info(todoDTO);
         model.addAttribute("dto",todoDTO);
+    }
+
+    // Todo 삭제하기
+    @PostMapping("/remove")
+    public String remove(Long tno, RedirectAttributes redirectAttributes) {
+        log.info("------------------------ remove --------------------------");
+        log.info("tno : "+ tno);
+
+        todoService.remove(tno);
+
+        return "redirect:/todo/list";
+    }
+
+    @PostMapping("/modify")
+    public void modify(TodoDTO todoDTO, RedirectAttributes redirectAttributes) {
+        log.info("modify...............");
+        log.info(todoDTO);
     }
 
 

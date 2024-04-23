@@ -14,4 +14,10 @@ public interface TodoService {
 
     // Todo 조회 서비스
     TodoDTO getOne(Long tno);
+
+    // Todo 삭제 서비스
+    void remove(Long tno);
+
+    // Todo 수정 서비스
+    void modify(TodoDTO todoDTO);
 }

@@ -17,4 +17,10 @@ public interface TodoMapper {
     // Todo 조회 기능
     TodoVO selectOne(Long tno);
 
+    // Todo 삭제 기능
+    void delete(Long tno);
+
+    // Todo 수정 기능
+    void update(TodoVO todoVO);
+
 }
