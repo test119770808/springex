@@ -1,6 +1,7 @@
 package com.zerock.springex.mapper;
 
 import com.zerock.springex.domain.TodoVO;
+import com.zerock.springex.dto.PageRequestDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -69,5 +70,24 @@ public class TodoMapperTests {
                 .finished(!todoVO.isFinished()).build();
         todoMapper.update(todoVO1);
         log.info(todoMapper.selectOne(todoVO.getTno()));
+    }
+
+    @Test
+    public void testSelectList() {
+        // 1. PageRequestDTO를 먼저 만들어요...
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
+        // 2. todoMapper.selectList()를 테스트 결과를 List<TodoVO>로 담기
+        List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+        // 3. 내용 출력하기...
+        voList.forEach(vo -> log.info(vo));
+    }
+
+    @Test
+    public void testGetCount() {
+        int count = todoMapper.getCount(new PageRequestDTO(1,10));
+        log.info("전체 게시글 수 : "+count);
     }
 }
