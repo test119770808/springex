@@ -26,9 +26,15 @@ public class TodoController {
 
     // /todo/list 접근시....
     @RequestMapping("/list")
-    public void list(Model model) {
-        log.info("todo list..... ");
-        model.addAttribute("dtoList", todoService.getList(new PageRequestDTO()));
+    public void list(@Valid PageRequestDTO pageRequestDTO,
+                     BindingResult bindingResult,
+                     Model model) {
+        log.info(pageRequestDTO);
+        if(bindingResult.hasErrors()) {
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        model.addAttribute("responseDTO", todoService.getList(pageRequestDTO));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
