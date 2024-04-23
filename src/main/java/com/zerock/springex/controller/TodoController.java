@@ -76,9 +76,20 @@ public class TodoController {
     }
 
     @PostMapping("/modify")
-    public void modify(TodoDTO todoDTO, RedirectAttributes redirectAttributes) {
-        log.info("modify...............");
+    public String modify(@Valid TodoDTO todoDTO,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()) {
+            log.info("has error................");
+            redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("tno", todoDTO.getTno());  // GET 파라미터
+            return "redirect:/todo/modify";  // /todo/modify?tno=1(todoDTO.getTno()의 값)
+        }
         log.info(todoDTO);
+
+        todoService.modify(todoDTO);
+
+        return "redirect:/todo/list";
     }
 
 
