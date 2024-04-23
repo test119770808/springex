@@ -5,6 +5,7 @@ import com.zerock.springex.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,9 @@ public class TodoController {
 
     // /todo/list 접근시....
     @RequestMapping("/list")
-    public void list() {
+    public void list(Model model) {
         log.info("todo list..... ");
+        model.addAttribute("dtoList", todoService.getAll());
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
