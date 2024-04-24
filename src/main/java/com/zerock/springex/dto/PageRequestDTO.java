@@ -27,8 +27,20 @@ public class PageRequestDTO {
     @Positive
     private int size = 10;
 
+    private String link;   // 페이지와 사이즈 정보를 같이 넘기기 위한 변수
+
     public int getSkip() {
         return (page - 1) * size;
+    }
+
+    public String getLink() {
+        if(link == null) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("page="+this.page);
+            builder.append("&size="+this.size);
+            link = builder.toString();
+        }
+        return link;
     }
 
 }

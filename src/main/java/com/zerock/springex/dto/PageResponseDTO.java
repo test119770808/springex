@@ -28,6 +28,7 @@ public class PageResponseDTO<E> {
     // 다음 페이지 존재 여부
     private boolean next;
 
+    // 게시글 목록 정보
     private List<E> dtoList;
 
     @Builder(builderMethodName = "withAll")  //생성자에 Lombok @Builder 적용
