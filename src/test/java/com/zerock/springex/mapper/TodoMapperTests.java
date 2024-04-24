@@ -90,4 +90,17 @@ public class TodoMapperTests {
 //        int count = todoMapper.getCount(new PageRequestDTO(1,10));
 //        log.info("전체 게시글 수 : "+count);
 //    }
+
+    @Test
+    public void testSelectSearch() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .types(new String[]{"w"})
+                .keyword("테스트")
+                .build();
+        List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+
+        voList.forEach(vo -> log.info(vo));
+    }
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 
 @Builder
 @Data
@@ -28,6 +29,12 @@ public class PageRequestDTO {
     private int size = 10;
 
     private String link;   // 페이지와 사이즈 정보를 같이 넘기기 위한 변수
+
+    private String[] types;   // 검색 종류, 제목,작성자
+    private String keyword;   // 검색 값
+    private boolean finished; // 완료여부 - 필터링
+    private LocalDate from;   // 일시 - 필터링
+    private LocalDate to;     // 일시 - 필터링
 
     public int getSkip() {
         return (page - 1) * size;
