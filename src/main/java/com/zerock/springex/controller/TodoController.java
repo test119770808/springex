@@ -33,7 +33,7 @@ public class TodoController {
         if(bindingResult.hasErrors()) {
             pageRequestDTO = PageRequestDTO.builder().build();
         }
-
+        log.info(pageRequestDTO);
         model.addAttribute("responseDTO", todoService.getList(pageRequestDTO));
     }
 
