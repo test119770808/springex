@@ -65,7 +65,7 @@ public class TodoController {
 
     // 한개의 Todo 조회하기
     @GetMapping({"/read", "/modify"}) // /read로 들어오면 read.jsp로, /modify로 들어오면 modify.jsp로 이동
-    public void read(Long tno, Model model) {
+    public void read(Long tno,PageRequestDTO pageRequestDTO ,Model model) {
         TodoDTO todoDTO = todoService.getOne(tno);
         log.info(todoDTO);
         model.addAttribute("dto",todoDTO);
@@ -73,28 +73,37 @@ public class TodoController {
 
     // Todo 삭제하기
     @PostMapping("/remove")
-    public String remove(Long tno, RedirectAttributes redirectAttributes) {
+    public String remove(Long tno,PageRequestDTO pageRequestDTO,RedirectAttributes redirectAttributes) {
         log.info("------------------------ remove --------------------------");
         log.info("tno : "+ tno);
 
         todoService.remove(tno);
 
+        // 삭제시에는 페이지 번호를 1로, 사이즈는 전달...
+        redirectAttributes.addAttribute("page",1);
+        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
         return "redirect:/todo/list";
     }
 
     @PostMapping("/modify")
     public String modify(@Valid TodoDTO todoDTO,
                        BindingResult bindingResult,
+                       PageRequestDTO pageRequestDTO,
                        RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()) {
             log.info("has error................");
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addAttribute("tno", todoDTO.getTno());  // GET 파라미터
+            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
             return "redirect:/todo/modify";  // /todo/modify?tno=1(todoDTO.getTno()의 값)
         }
         log.info(todoDTO);
 
         todoService.modify(todoDTO);
+
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
 
         return "redirect:/todo/list";
     }

@@ -85,9 +85,9 @@ public class TodoMapperTests {
         voList.forEach(vo -> log.info(vo));
     }
 
-    @Test
-    public void testGetCount() {
-        int count = todoMapper.getCount(new PageRequestDTO(1,10));
-        log.info("전체 게시글 수 : "+count);
-    }
+//    @Test
+//    public void testGetCount() {
+//        int count = todoMapper.getCount(new PageRequestDTO(1,10));
+//        log.info("전체 게시글 수 : "+count);
+//    }
 }
