@@ -80,9 +80,9 @@ public class TodoController {
         todoService.remove(tno);
 
         // 삭제시에는 페이지 번호를 1로, 사이즈는 전달...
-        redirectAttributes.addAttribute("page",1);
-        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
-        return "redirect:/todo/list";
+//        redirectAttributes.addAttribute("page",1);
+//        redirectAttributes.addAttribute("size", pageRequestDTO.getSize());
+        return "redirect:/todo/list?"+pageRequestDTO.getLink();
     }
 
     @PostMapping("/modify")
@@ -94,18 +94,18 @@ public class TodoController {
             log.info("has error................");
             redirectAttributes.addFlashAttribute("errors",bindingResult.getAllErrors());
             redirectAttributes.addAttribute("tno", todoDTO.getTno());  // GET 파라미터
-            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
-            return "redirect:/todo/modify";  // /todo/modify?tno=1(todoDTO.getTno()의 값)
+//            redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+//            redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+            return "redirect:/todo/modify?"+pageRequestDTO.getLink();  // /todo/modify?tno=1(todoDTO.getTno()의 값)
         }
         log.info(todoDTO);
 
         todoService.modify(todoDTO);
 
-        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
-        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
-
-        return "redirect:/todo/list";
+//        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+//        redirectAttributes.addAttribute("size",pageRequestDTO.getSize());
+        redirectAttributes.addAttribute("tno", todoDTO.getTno());
+        return "redirect:/todo/read?"+pageRequestDTO.getLink();
     }
 
 

@@ -146,7 +146,14 @@
                                 }
                                 const num = target.getAttribute("data-num");
 
-                                self.location = `/todo/list?page=\${num}`  //백틱(``)을 이용한 템플릿 처리
+                                const formObj = document.querySelector("form");
+
+                                formObj.innerHTML += `<input type='hidden' name='page' value='\${num}'>`
+
+                                // console.log(formObj);
+                                formObj.submit();
+
+                                <%--self.location = `/todo/list?page=\${num}&${pageRequestDTO.link}`  //백틱(``)을 이용한 템플릿 처리--%>
                                 // 백틱은 문자열에 + 를 사용해야 하는 불편을 없애줘요~!~
                             },false)
 
