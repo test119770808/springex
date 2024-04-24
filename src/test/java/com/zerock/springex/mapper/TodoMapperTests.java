@@ -96,11 +96,16 @@ public class TodoMapperTests {
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
                 .page(1)
                 .size(10)
-                .types(new String[]{"w"})
+                .types(new String[]{"t","w"})
+                .finished(true)
+                .from(LocalDate.of(2024,4,20))
+                .to(LocalDate.of(2024,04,30))
                 .keyword("테스트")
                 .build();
         List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
 
         voList.forEach(vo -> log.info(vo));
+
+        log.info(todoMapper.getCount(pageRequestDTO));
     }
 }
